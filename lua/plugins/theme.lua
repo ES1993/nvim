@@ -1,23 +1,53 @@
-local global = require("global");
+local global = require("global")
 
 global.set_mappings("n", {
-  ["<leader>b1"] = { function() require("bufferline").go_to(1) end, desc = "buffer 1" },
-  ["<leader>b2"] = { function() require("bufferline").go_to(2) end, desc = "buffer 2" },
-  ["<leader>b3"] = { function() require("bufferline").go_to(3) end, desc = "buffer 3" },
-  ["<leader>bh"] = { function() require("bufferline").cycle(-1) end, desc = "prev" },
-  ["<leader>bl"] = { function() require("bufferline").cycle(1) end, desc = "next" },
-  ["<leader>bc"] = { function() require("bufdelete").bufdelete(0, true) end, desc = "close" },
-  ["<leader>o"] = { "<cmd>NvimTreeFocus<cr>", desc = "focus tree" }
+  ["<leader>b1"] = {
+    function()
+      require("bufferline").go_to(1)
+    end,
+    desc = "buffer 1",
+  },
+  ["<leader>b2"] = {
+    function()
+      require("bufferline").go_to(2)
+    end,
+    desc = "buffer 2",
+  },
+  ["<leader>b3"] = {
+    function()
+      require("bufferline").go_to(3)
+    end,
+    desc = "buffer 3",
+  },
+  ["<leader>bh"] = {
+    function()
+      require("bufferline").cycle(-1)
+    end,
+    desc = "prev",
+  },
+  ["<leader>bl"] = {
+    function()
+      require("bufferline").cycle(1)
+    end,
+    desc = "next",
+  },
+  ["<leader>bc"] = {
+    function()
+      require("bufdelete").bufdelete(0, true)
+    end,
+    desc = "close",
+  },
+  ["<leader>o"] = { "<cmd>NvimTreeFocus<cr>", desc = "focus tree" },
 })
 
 return {
-  { 'nvim-tree/nvim-web-devicons' },
+  { "nvim-tree/nvim-web-devicons" },
   { "famiu/bufdelete.nvim" },
   {
     "nvim-tree/nvim-tree.lua",
     config = function()
       require("nvim-tree").setup({})
-    end
+    end,
   },
   {
     "folke/tokyonight.nvim",
@@ -29,12 +59,12 @@ return {
       global.set_theme("tokyonight")
 
       require("nvim-tree")
-      require('lualine')
+      require("lualine")
       require("bufferline")
       require("which-key")
-    end
+    end,
   },
-  { 'linrongbin16/lsp-progress.nvim' },
+  { "linrongbin16/lsp-progress.nvim" },
   {
     "nvim-lualine/lualine.nvim",
     config = function()
@@ -42,7 +72,7 @@ return {
         return os.date("%m-%d %H:%M")
       end
 
-      require('lsp-progress').setup({
+      require("lsp-progress").setup({
         format = function(client_messages)
           local sign = " LSP"
 
@@ -69,30 +99,30 @@ return {
         end,
       })
 
-      require('lualine').setup({
+      require("lualine").setup({
         options = {
-          component_separators = { left = '', right = '' },
-          section_separators = { left = '', right = '' },
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
         },
         sections = {
           lualine_c = { "encoding", "filename", "filesize" },
-          lualine_x = { require('lsp-progress').progress },
+          lualine_x = { require("lsp-progress").progress },
           lualine_y = { "progress", "location" },
-          lualine_z = { date }
-        }
+          lualine_z = { date },
+        },
       })
-    end
+    end,
   },
   {
-    'akinsho/bufferline.nvim',
+    "akinsho/bufferline.nvim",
     config = function()
       require("bufferline").setup()
-    end
+    end,
   },
   {
     "folke/which-key.nvim",
     config = function()
-      require("which-key").setup {}
-    end
+      require("which-key").setup({})
+    end,
   },
 }

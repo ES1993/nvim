@@ -2,7 +2,7 @@ local options = {
   o = {
     shell = "zsh",
     timeout = true,
-    timeoutlen = 300
+    timeoutlen = 300,
   },
   opt = {
     -- line
@@ -74,8 +74,8 @@ local options = {
   g = {
     mapleader = " ",
     loaded_netrw = 1,
-    loaded_netrwPlugin = 1
-  }
+    loaded_netrwPlugin = 1,
+  },
 }
 
 for scope, table in pairs(options) do

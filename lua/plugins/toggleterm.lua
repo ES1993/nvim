@@ -1,27 +1,28 @@
-local global = require("global");
+local global = require("global")
 
 global.set_mappings("n", {
-  ["<leader>t"] = { global.empty, desc = "terminal" },
-  ["<leader>tt"] = {
+  ["<leader>gt"] = {
     function()
       local terminal = require("toggleterm.terminal")
-      terminal.Terminal:new({
-        env = {
-          https_proxy = "http://127.0.0.1:7890",
-          http_proxy = "http://127.0.0.1:7890",
-          all_proxy = "socks5://127.0.0.1:7890",
-        }
-      }):toggle()
+      terminal.Terminal
+          :new({
+            env = {
+              https_proxy = "http://127.0.0.1:7890",
+              http_proxy = "http://127.0.0.1:7890",
+              all_proxy = "socks5://127.0.0.1:7890",
+            },
+          })
+          :toggle()
     end,
-    desc = "open terminal"
+    desc = "open terminal",
   },
-  ["<leader>tg"] = {
+  ["<leader>gg"] = {
     function()
       local terminal = require("toggleterm.terminal")
       terminal.Terminal:new({ cmd = "lazygit" }):toggle()
     end,
-    desc = "open lazygit"
-  }
+    desc = "open lazygit",
+  },
 })
 
 return {
@@ -39,5 +40,5 @@ return {
       border = "curved",
       highlights = { border = "Normal", background = "Normal" },
     },
-  }
+  },
 }
