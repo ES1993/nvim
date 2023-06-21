@@ -25,7 +25,7 @@ global.set_mappings("n", {
       terminal.Terminal
           :new({
             env = terminal_env,
-            direction = "horizontal"
+            direction = "tab"
           })
           :toggle()
     end,

@@ -73,29 +73,32 @@ return {
       end
 
       require("lsp-progress").setup({
-        format = function(client_messages)
+        format = function(messages)
           local sign = " LSP"
 
-          if #client_messages > 0 then
-            return sign .. " " .. table.concat(client_messages, " ")
-          else
-            local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-            local clients = vim.lsp.get_active_clients()
-
-            if next(clients) == nil then
-              return sign
-            end
-
-            for _, client in ipairs(clients) do
-              local filetypes = client.config.filetypes
-
-              if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                return sign .. "[" .. client.name .. "]"
-              end
-            end
+          if #messages > 0 then
+            return sign .. " " .. table.concat(messages, " ")
           end
 
-          return sign
+          local cur_filetype = vim.api.nvim_buf_get_option(0, "filetype")
+          local active_clients = vim.lsp.get_active_clients()
+
+          if #active_clients > 0 then
+            local client_names = {}
+
+            for i, client in ipairs(active_clients) do
+              local filetypes = client.config.filetypes
+              local client_name = client.name
+              local has_filetype = vim.fn.index(filetypes, cur_filetype) ~= -1
+              if filetypes and has_filetype and client_name ~= "" then
+                table.insert(client_names, "[" .. client_name .. "]")
+              end
+            end
+
+            return sign .. " " .. table.concat(client_names, " ")
+          end
+
+          return ""
         end,
       })
 
