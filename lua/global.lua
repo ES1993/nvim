@@ -31,4 +31,18 @@ function M.set_theme(theme)
     vim.cmd("colorscheme " .. theme)
 end
 
+function M.print_table(table, level)
+    if not level then
+        level = 0
+    end
+    for key, value in pairs(table) do
+        print(string.rep(">",level), key, ",", value)
+
+        if type(value) == "table" then
+            M.print_table(value, level + 1)
+        end
+
+    end
+end
+
 return M;
