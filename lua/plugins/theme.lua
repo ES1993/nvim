@@ -80,13 +80,12 @@ return {
             return sign .. " " .. table.concat(messages, " ")
           end
 
-          local cur_filetype = vim.api.nvim_buf_get_option(0, "filetype")
+          local client_names = {}
           local active_clients = vim.lsp.get_active_clients()
 
           if #active_clients > 0 then
-            local client_names = {}
-
-            for i, client in ipairs(active_clients) do
+            local cur_filetype = vim.api.nvim_buf_get_option(0, "filetype")
+            for _, client in ipairs(active_clients) do
               local filetypes = client.config.filetypes
               local client_name = client.name
               local has_filetype = vim.fn.index(filetypes, cur_filetype) ~= -1
@@ -94,7 +93,9 @@ return {
                 table.insert(client_names, "[" .. client_name .. "]")
               end
             end
+          end
 
+          if #client_names > 0 then
             return sign .. " " .. table.concat(client_names, " ")
           end
 
